@@ -7,9 +7,9 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 3306
+  - port: {{ .Values.server.mysql.image.port }}
     name: "mysql"
-    targetPort: 3306
+    targetPort: {{ .Values.server.mysql.image.port }}
     protocol: TCP
   selector:
     app: seata
@@ -23,9 +23,9 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 8848
+  - port: {{ .Values.server.nacos.image.port }}
     name: "nacos"
-    targetPort: 8848
+    targetPort: {{ .Values.server.nacos.image.port }}
     protocol: TCP
   selector:
     app: seata
@@ -39,9 +39,9 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 8091
+  - port: {{ .Values.server.fescar.image.port }}
     name: "feacar"
-    targetPort: 8091
+    targetPort: {{ .Values.server.fescar.image.port }}
     protocol: TCP
   selector:
     app: seata

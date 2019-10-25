@@ -12,23 +12,23 @@ spec:
     spec:
       containers:
         - name: fescar
-          imagePullPolicy: Always
-          image: gcr.io/seata-demo-2ec656/seata:0.9.0
+          imagePullPolicy: IfNotPresent
+          image: {{ .Values.server.fescar.image.registry }}{{ .Values.server.fescar.image.name }}:{{ .Values.server.fescar.image.tag }}
           ports:
-            - containerPort: 8091
+            - containerPort: {{ .Values.server.fescar.image.port }}
         - name: nacos
           imagePullPolicy: IfNotPresent
-          image: nacos/nacos-server:latest
+          image: {{ .Values.server.nacos.image.name }}:{{ .Values.server.nacos.image.tag }}
           ports:
-            - containerPort: 8848
+            - containerPort: {{ .Values.server.nacos.image.port }}
           env:
             - name: MODE
               value: "standalone"
         - name: mysql
           imagePullPolicy: IfNotPresent
-          image: mysql:5.6
+          image: {{ .Values.server.mysql.image.name }}:{{ .Values.server.mysql.image.tag }}
           ports:
-            - containerPort: 3306
+            - containerPort: {{ .Values.server.mysql.image.port }}
           env:
             - name: MYSQL_DATABASE
               value: "db_gts_fescar"
