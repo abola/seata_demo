@@ -1,18 +1,18 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: seata-order-deployment
+  name: {{ .Values.client.order.name }}-deployment
   labels:
-    name: seata-order-deployment
+    name: {{ .Values.client.order.name }}-deployment
 spec:
   template:
     metadata:
       labels:
-        app: seata-order
+        app: {{ .Values.client.order.name }}
     spec:
       containers:
-        - name: samples-order
+        - name: {{ .Values.client.order.name }}
           imagePullPolicy: IfNotPresent
-          image: gcr.io/seata-demo-2ec656/samples-order:1.0.5
+          image: {{ .Values.client.order.image.registry }}{{ .Values.client.order.image.name }}:{{ .Values.client.order.image.tag }}
           ports:
-            - containerPort: 8101
+            - containerPort: {{ .Values.client.order.image.port }}

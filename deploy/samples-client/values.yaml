@@ -1,0 +1,29 @@
+client:
+    account:
+        name: "samples-account"
+        image:
+            registry:
+            name: "samples-account"
+            tag: "1.0.0"
+            port: 8102
+    business:
+        name: "samples-business"
+        image:
+            registry:
+            name: "samples-business"
+            tag: "1.0.0"
+            port: 8848
+    order:
+        name: "samples-order"
+        image:
+            registry:
+            name: "samples-order"
+            tag: "1.0.0"   
+            port: 8101 
+    storage:
+        name: "samples-storage"
+        image:
+            registry:
+            name: "samples-storage"
+            tag: "1.0.0"   
+            port: 8100 

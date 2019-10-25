@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: seata-business-service
+  name: {{ .Values.client.business.name }}-service
   labels:
-    name: seata-business-service
+    name: {{ .Values.client.business.name }}-service
 spec:
   type: ClusterIP
   ports:
-  - port: 8104
+  - port: {{ .Values.client.business.image.port }}
     name: "seata-business"
-    targetPort: 8104
+    targetPort: {{ .Values.client.business.image.port }}
     protocol: TCP
   selector:
-    app: seata-business
+    app: {{ .Values.client.business.name }}

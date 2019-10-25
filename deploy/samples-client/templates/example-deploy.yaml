@@ -1,23 +1,23 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: seata-example-deployment
+  name: {{ .Values.client.account.name }}-deployment
   labels:
-    name: seata-example-deployment
+    name: {{ .Values.client.account.name }}-deployment
 spec:
   template:
     metadata:
       labels:
-        app: seata-example
+        app: {{ .Values.client.account.name }}
     spec:
       containers:
-        - name: samples-account
+        - name: {{ .Values.client.account.name }}
           imagePullPolicy: IfNotPresent
-          image: gcr.io/seata-demo-2ec656/samples-account:1.0.5
+          image: {{ .Values.client.account.image.registry }}{{ .Values.client.account.image.name }}:{{ .Values.client.account.image.tag }}
           ports:
-            - containerPort: 8102
-        - name: samples-storage
+            - containerPort: {{ .Values.client.account.image.port }}
+        - name: {{ .Values.client.storage.name }}
           imagePullPolicy: IfNotPresent
-          image: gcr.io/seata-demo-2ec656/samples-storage:1.0.5
+          image: {{ .Values.client.storage.image.registry }}{{ .Values.client.storage.image.name }}:{{ .Values.client.storage.image.tag }}
           ports:
-            - containerPort: 8100
+            - containerPort: {{ .Values.client.storage.image.port }}

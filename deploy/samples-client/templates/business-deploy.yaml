@@ -1,18 +1,18 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: seata-business-deployment
+  name: {{ .Values.client.business.name }}-deployment
   labels:
-    name: seata-business-deployment
+    name: {{ .Values.client.business.name }}-deployment
 spec:
   template:
     metadata:
       labels:
-        app: seata-business
+        app: {{ .Values.client.business.name }}
     spec:
       containers:
-        - name: samples-business
+        - name: {{ .Values.client.business.name }}
           imagePullPolicy: IfNotPresent
-          image: gcr.io/seata-demo-2ec656/samples-business:1.0.5
+          image: {{ .Values.client.business.image.registry }}{{ .Values.client.business.image.name }}:{{ .Values.client.business.image.tag }}
           ports:
-            - containerPort: 8104
+            - containerPort: {{ .Values.client.business.image.port }}

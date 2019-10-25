@@ -131,8 +131,34 @@ helm template deploy/seata-server \
 
 ### 匯入Samples 資料表進入 MySQL 
 
+```bash
+cat ${SAMPLES_PATH}/sql/db_seata.sql | kubectl exec -i $(kubectl get pods --selector app=seata --output=jsonpath={.items..metadata.name}) -c mysql -- mysql -uroot --password=root db_gts_fescar
+```
+
 ### 啟動 Samples client
 
 ```bash
 helm template deploy/samples-client | kubectl apply -f -
+```
+
+
+```
+kubectl get pods --selector app=seata-business --output=jsonpath={.items..metadata.name}
+```
+
+## 測試驗證 
+
+扣 10個水杯 共100元
+
+```bash
+kubectl exec -i sleep-56869bd5f5-4bkt9 -- curl -H "Content-Type: application/json" -X POST --data "{\"userId\":\"1\",\"commodityCode\":\"C201901140001\",\"count\":10,\"amount\":100}"   seata-business-service:8104/business/dubbo/buy
+```
+
+查看資料庫
+
+```
+echo 'select * from t_account;'| kubectl exec -i $(kubectl get pods --selector app=seata --output=jsonpath={.items..metadata.name}) -c mysql -- mysql -uroot --password=root db_gts_fescar && \
+echo 'select * from t_order;'| kubectl exec -i $(kubectl get pods --selector app=seata --output=jsonpath={.items..metadata.name}) -c mysql -- mysql -uroot --password=root db_gts_fescar && \
+echo 'select * from t_storage;'| kubectl exec -i $(kubectl get pods --selector app=seata --output=jsonpath={.items..metadata.name}) -c mysql -- mysql -uroot --password=root db_gts_fescar && \
+echo 'select * from undo_log;'| kubectl exec -i $(kubectl get pods --selector app=seata --output=jsonpath={.items..metadata.name}) -c mysql -- mysql -uroot --password=root db_gts_fescar 
 ```
