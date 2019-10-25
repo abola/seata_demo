@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: seata-example-deployment
+  labels:
+    name: seata-example-deployment
+spec:
+  template:
+    metadata:
+      labels:
+        app: seata-example
+    spec:
+      containers:
+        - name: samples-account
+          imagePullPolicy: IfNotPresent
+          image: gcr.io/seata-demo-2ec656/samples-account:1.0.5
+          ports:
+            - containerPort: 8102
+        - name: samples-storage
+          imagePullPolicy: IfNotPresent
+          image: gcr.io/seata-demo-2ec656/samples-storage:1.0.5
+          ports:
+            - containerPort: 8100

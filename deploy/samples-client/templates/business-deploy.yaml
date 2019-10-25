@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: seata-business-deployment
+  labels:
+    name: seata-business-deployment
+spec:
+  template:
+    metadata:
+      labels:
+        app: seata-business
+    spec:
+      containers:
+        - name: samples-business
+          imagePullPolicy: IfNotPresent
+          image: gcr.io/seata-demo-2ec656/samples-business:1.0.5
+          ports:
+            - containerPort: 8104

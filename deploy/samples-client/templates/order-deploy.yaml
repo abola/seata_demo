@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: seata-order-deployment
+  labels:
+    name: seata-order-deployment
+spec:
+  template:
+    metadata:
+      labels:
+        app: seata-order
+    spec:
+      containers:
+        - name: samples-order
+          imagePullPolicy: IfNotPresent
+          image: gcr.io/seata-demo-2ec656/samples-order:1.0.5
+          ports:
+            - containerPort: 8101
